@@ -10,6 +10,18 @@
     <height>680</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1126</width>
+    <height>680</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1126</width>
+    <height>680</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Patient Monitor</string>
   </property>
@@ -19,10 +31,12 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:#3A3B3C;
-color: white;</string>
+background-image: url(:/images/Assets/bg2.jpg);
+color: white;
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="PlotWidget" name="groupBox">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -34,6 +48,16 @@ color: white;</string>
     <property name="title">
      <string>ECG</string>
     </property>
+    <widget class="PlotWidget" name="ECG_Graph">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>731</width>
+       <height>271</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
@@ -47,94 +71,116 @@ color: white;</string>
     <property name="title">
      <string>Spectrogram</string>
     </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>340</y>
-      <width>751</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Temperature</string>
-    </property>
-    <widget class="QLCDNumber" name="lcdNumber">
+    <widget class="QGraphicsView" name="spectrogram">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>211</width>
-       <height>81</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>120</y>
-       <width>211</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Current Temperture</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="lcdNumber_2">
-     <property name="geometry">
-      <rect>
-       <x>530</x>
+       <x>10</x>
        <y>20</y>
-       <width>191</width>
-       <height>81</height>
+       <width>291</width>
+       <height>271</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>120</y>
-       <width>221</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Average Temperature</string>
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QLCDNumber" name="current_temp_LCD">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>330</x>
       <y>350</y>
-      <width>311</width>
-      <height>241</height>
+      <width>221</width>
+      <height>81</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+   </widget>
+   <widget class="QLCDNumber" name="average_temp_LCD">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>350</y>
+      <width>221</width>
+      <height>81</height>
+     </rect>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>440</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Current Temperature</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>440</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Average Temperature</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status_ok_label">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>520</y>
+      <width>91</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/images/Assets/checked.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status_warning_label">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>520</y>
+      <width>91</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">opacity: 0.1;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/images/Assets/warning.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -153,9 +199,8 @@ color: white;</string>
  <customwidgets>
   <customwidget>
    <class>PlotWidget</class>
-   <extends>QGroupBox</extends>
+   <extends>QGraphicsView</extends>
    <header>pyqtgraph</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

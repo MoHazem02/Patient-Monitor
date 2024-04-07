@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="images">
+    <file>Assets/checked.png</file>
+    <file>Assets/heart.png</file>
+    <file>Assets/thermometer.png</file>
+    <file>Assets/warning.png</file>
+  </qresource>
+</RCC>

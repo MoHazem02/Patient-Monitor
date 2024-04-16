@@ -2,6 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from pyqtgraph import PlotWidget
 import resources
 import sys
+from App import *
+from mplwidget import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -27,7 +29,7 @@ class Ui_MainWindow(object):
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setGeometry(QtCore.QRect(790, 30, 311, 301))
         self.groupBox_2.setObjectName("groupBox_2")
-        self.spectrogram = QtWidgets.QGraphicsView(self.groupBox_2)
+        self.spectrogram = MplWidget(self.groupBox_2)
         self.spectrogram.setGeometry(QtCore.QRect(10, 20, 291, 271))
         self.spectrogram.setObjectName("spectrogram")
         self.current_temp_LCD = QtWidgets.QLCDNumber(self.centralwidget)
@@ -91,5 +93,6 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    Main = ApplicationManager(ui)
     MainWindow.show()
     sys.exit(app.exec_())

@@ -3,6 +3,7 @@ from pyqtgraph import PlotWidget
 import resources
 import sys
 from App import *
+# from App2 import * 
 from mplwidget import *
 
 class Ui_MainWindow(object):

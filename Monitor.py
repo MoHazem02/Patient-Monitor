@@ -67,6 +67,7 @@ class Ui_MainWindow(object):
         self.status_warning_label.setPixmap(QtGui.QPixmap(":/images/Assets/warning.png"))
         self.status_warning_label.setScaledContents(True)
         self.status_warning_label.setObjectName("status_warning_label")
+        self.status_warning_label.setVisible(False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1126, 26))

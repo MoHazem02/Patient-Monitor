@@ -1,6 +1,8 @@
 from serial import *
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 import pandas as pd, numpy as np
+import soundfile as sf
+import sounddevice as sd
 
 class ApplicationManager:
     def __init__(self,UI):
@@ -12,6 +14,7 @@ class ApplicationManager:
         self.sample_rate = 44100
         #self.start()
         self.load_signal()
+        self.data, self.sample_rate = sf.read("alert_sound.wav")
            
     def start(self):
         self.timer = QtCore.QTimer()
@@ -28,6 +31,12 @@ class ApplicationManager:
 
             self.ui.current_temp_LCD.display(temprature)
             self.ui.average_temp_LCD.display(average)
+            if temprature > 38:
+                self.show_warning()
+            else:
+                self.hide_warning()
+                
+
 
     def load_signal(self):
         data_header_rows = ["nSeq", "I1", "I2", "O1", "O2", "A1", "A2", "A3", "A4", "A5", "A6"]
@@ -51,3 +60,13 @@ class ApplicationManager:
 
         if self.X_Points_Plotted < len(self.Y_coordinates):
             self.ui.ECG_Graph.getViewBox().setXRange(max(self.X_Coordinates[0: self.X_Points_Plotted + 1]) - 100, max(self.X_Coordinates[0: self.X_Points_Plotted + 1]))
+    
+    def show_warning(self):
+        sd.play(self.data, self.sample_rate)
+        self.ui.status_ok_label.setVisible(False)
+        self.ui.status_warning_label.setVisible(True)
+
+    def hide_warning(self):
+        sd.stop()
+        self.ui.status_warning_label.setVisible(False)
+        self.ui.status_ok_label.setVisible(True)
